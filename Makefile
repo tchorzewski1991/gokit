@@ -2,7 +2,7 @@ lint:
 	@golangci-lint run -v -c golangci.yaml
 
 test:
-	@go test ./...
+	@go test ./... -v
 
 tidy:
 	@go mod tidy
