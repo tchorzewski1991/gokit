@@ -8,29 +8,17 @@ import (
 )
 
 func TestFind(t *testing.T) {
-	type user struct {
-		email string
-	}
-	users := []user{
-		{
-			email: "user1@email.com",
-		},
-		{
-			email: "user2@email.com",
-		},
-	}
+	elems := []string{"a", "b", "c"}
 
-	byEmail := func(u user) bool {
-		return u.email == "user2@email.com"
-	}
-	res, ok := slice.Find(users, byEmail)
+	s, ok := slice.Find(elems, func(e string) bool {
+		return e == "b"
+	})
 	assert.True(t, ok)
-	assert.Equal(t, res, users[1])
+	assert.Equal(t, s, elems[1])
 
-	byUser := func(u user) bool {
-		return u == users[0]
-	}
-	res, ok = slice.Find(users, byUser)
-	assert.True(t, ok)
-	assert.Equal(t, res, users[0])
+	s, ok = slice.Find(elems, func(e string) bool {
+		return e == "d"
+	})
+	assert.False(t, ok)
+	assert.Equal(t, s, "")
 }
